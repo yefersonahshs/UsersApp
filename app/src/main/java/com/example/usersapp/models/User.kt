@@ -1,4 +1,4 @@
-package com.example.usersapp
+package com.example.usersapp.models
 
 data class User (
 
