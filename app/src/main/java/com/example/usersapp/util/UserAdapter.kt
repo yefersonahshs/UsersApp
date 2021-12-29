@@ -8,10 +8,10 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
 import android.widget.Filter
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.content.ContextCompat.getMainExecutor
 import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.usersapp.R
@@ -24,18 +24,16 @@ import java.lang.Character.toLowerCase
 
 const val EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE"
 
-class UserAdapter(private val users:List<User>,    private val mContext: Context,
+class UserAdapter(
+    private val users: List<User>,
 ):RecyclerView.Adapter<UserAdapter.ViewHolder>(){
 
 
 
 
-
-
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-    val view=LayoutInflater.from(parent.context).inflate(R.layout.user_row,parent,false)
-    return ViewHolder(view)
+        val view=LayoutInflater.from(parent.context).inflate(R.layout.user_row,parent,false)
+        return ViewHolder(view)
 
     }
 
@@ -60,23 +58,23 @@ class UserAdapter(private val users:List<User>,    private val mContext: Context
     override fun getItemCount()=users.size
 
 
-   inner class ViewHolder(itemView:View):RecyclerView.ViewHolder(itemView),
-       View.OnClickListener {
+    inner class ViewHolder(itemView:View):RecyclerView.ViewHolder(itemView),
+        View.OnClickListener {
 
-       val name: TextView = itemView.firstName
-       val email: TextView = itemView.email
-       val phone: TextView = itemView.phone
+        val name: TextView = itemView.firstName
+        val email: TextView = itemView.email
+        val phone: TextView = itemView.phone
 
-       init {
-           itemView.setOnClickListener(this)
-       }
+        init {
+            itemView.setOnClickListener(this)
+        }
 
-       override fun onClick(v: View?) {
-           val position = adapterPosition
-           if (position != RecyclerView.NO_POSITION) {
-           }
-       }
-   }
+        override fun onClick(v: View?) {
+            val position = adapterPosition
+            if (position != RecyclerView.NO_POSITION) {
+            }
+        }
+    }
 
     interface OnItemClickListener {
         fun onItemClick(position: Int)
@@ -106,8 +104,8 @@ class UserAdapter(private val users:List<User>,    private val mContext: Context
 
             override fun publishResults(p0: CharSequence?, p1: Filter.FilterResults?) {
 
-               // listdataSearch
-               // listdataSearch.addAll(p1?.values as Collection<User>)
+                // listdataSearch
+                // listdataSearch.addAll(p1?.values as Collection<User>)
 
                 notifyDataSetChanged()
             }

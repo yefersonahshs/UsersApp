@@ -6,4 +6,14 @@
     android:layout_height="match_parent"
     tools:context=".view.DetailActivity">
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_user_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="18dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginRight="18dp"
+        android:scrollbars="vertical" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

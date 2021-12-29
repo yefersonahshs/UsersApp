@@ -4,8 +4,6 @@ import AppDatabase
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.widget.SearchView
-import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.room.Room
 
@@ -18,7 +16,6 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import kotlinx.android.synthetic.main.activity_main.*
-import java.util.Locale.filter
 
 
 class MainActivity : AppCompatActivity(){
