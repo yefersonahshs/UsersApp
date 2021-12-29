@@ -1,11 +1,14 @@
 package com.example.usersapp.view
 
+import AppDatabase
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.SearchView
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.room.Room
+
 import com.example.usersapp.R
 import com.example.usersapp.api.ApiService
 import com.example.usersapp.client.RetrofitClient
@@ -18,14 +21,18 @@ import kotlinx.android.synthetic.main.activity_main.*
 import java.util.Locale.filter
 
 
-class MainActivity : AppCompatActivity(), UserAdapter.OnItemClickListener {
+class MainActivity : AppCompatActivity(){
 
-    private lateinit var users: List<User>
-    private val adapter = UserAdapter(users, this)
+    val db = Room.databaseBuilder(
+        applicationContext,
+        AppDatabase::class.java, "todo-list.db"
+    ).build()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+
 
 
         val call = RetrofitClient()
@@ -51,15 +58,19 @@ class MainActivity : AppCompatActivity(), UserAdapter.OnItemClickListener {
         })
     }
 
-
+/*
     override fun onItemClick(position: Int) {
         Toast.makeText(this, "Item $position clicked", Toast.LENGTH_SHORT).show()
         val clickedItem = users[position]
         clickedItem.name = "Clicked"
         adapter.notifyItemChanged(position)
     }
-
+*/
     private fun showData(users: List<User>) {
+
+
+       // room.UserDao().insert(users)
+
         rv_user_list.apply {
             layoutManager = LinearLayoutManager(this@MainActivity)
             adapter =

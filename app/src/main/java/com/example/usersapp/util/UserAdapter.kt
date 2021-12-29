@@ -1,33 +1,36 @@
 package com.example.usersapp.util
 
+import android.content.ContentValues
+import android.content.Context
+import android.content.Intent
+import android.provider.AlarmClock.EXTRA_MESSAGE
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.Filter
 import android.widget.TextView
+import android.widget.Toast
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.usersapp.R
 import com.example.usersapp.models.User
+import com.example.usersapp.view.DetailActivity
 import kotlinx.android.synthetic.main.user_row.view.*
 import java.lang.Character.toLowerCase
 
-class UserAdapter(private val users:List<User>
-                  private val listener: AdapterView.OnItemClickListener
 
+
+const val EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE"
+
+class UserAdapter(private val users:List<User>,    private val mContext: Context,
 ):RecyclerView.Adapter<UserAdapter.ViewHolder>(){
 
 
 
 
 
-    private val listdataSearch:List<User>
-
-
-    init {
-        listdataSearch= ArrayList()
-        listdataSearch.addAll(users)
-    }
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -41,6 +44,17 @@ class UserAdapter(private val users:List<User>
         holder.name.text=user.name
         holder.email.text=user.email
         holder.phone.text=user.phone
+
+        holder.itemView.setOnClickListener {
+            Log.d(ContentValues.TAG, "onClick: clicked on: " + users!![position])
+            Toast.makeText(mContext, users!![position].id, Toast.LENGTH_SHORT).show()
+
+            val intent = Intent(this, DetailActivity::class.java).apply {
+                putExtra(EXTRA_MESSAGE, users!![position].id)
+            }
+            startActivity(intent)
+        }
+
     }
 
     override fun getItemCount()=users.size
@@ -60,7 +74,6 @@ class UserAdapter(private val users:List<User>
        override fun onClick(v: View?) {
            val position = adapterPosition
            if (position != RecyclerView.NO_POSITION) {
-               listener.onItemClick(position)
            }
        }
    }
