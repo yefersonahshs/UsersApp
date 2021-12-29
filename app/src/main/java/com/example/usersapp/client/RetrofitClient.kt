@@ -10,7 +10,7 @@ class RetrofitClient {
 
     fun getRetrofit():Retrofit{
 
-        val logging = HttpLoggingInterceptor()
+        val logging = HttpLoggingInterceptor() //nos ayudara a saber la informacion que trae la llamada
         logging.level = HttpLoggingInterceptor.Level.BODY
         val client = OkHttpClient.Builder()
             .addInterceptor(logging)
@@ -20,7 +20,7 @@ class RetrofitClient {
             .create()
 
         return Retrofit.Builder()
-            .baseUrl("https://jsonplaceholder.typicode.com")
+            .baseUrl("https://jsonplaceholder.typicode.com")//url base de la que consumiremos el servicio
             .addConverterFactory(GsonConverterFactory.create(gson))
             .client(client)
             .build()

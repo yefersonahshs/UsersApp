@@ -2,7 +2,8 @@ package com.example.usersapp.models
 
 data class User (
 
-    val firstName :String,
+    var id:Int,
+    var name :String,
     val email :String,
     val phone :String
 

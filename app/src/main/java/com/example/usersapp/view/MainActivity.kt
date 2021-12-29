@@ -3,23 +3,26 @@ package com.example.usersapp.view
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.SearchView
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.usersapp.R
 import com.example.usersapp.api.ApiService
 import com.example.usersapp.client.RetrofitClient
 import com.example.usersapp.models.User
 import com.example.usersapp.util.UserAdapter
-import com.google.gson.GsonBuilder
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 import kotlinx.android.synthetic.main.activity_main.*
-import okhttp3.OkHttpClient
+import java.util.Locale.filter
 
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), UserAdapter.OnItemClickListener {
+
+    private lateinit var users: List<User>
+    private val adapter = UserAdapter(users, this)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -49,14 +52,24 @@ class MainActivity : AppCompatActivity() {
     }
 
 
+    override fun onItemClick(position: Int) {
+        Toast.makeText(this, "Item $position clicked", Toast.LENGTH_SHORT).show()
+        val clickedItem = users[position]
+        clickedItem.name = "Clicked"
+        adapter.notifyItemChanged(position)
+    }
+
     private fun showData(users: List<User>) {
-        recyclerView.apply {
+        rv_user_list.apply {
             layoutManager = LinearLayoutManager(this@MainActivity)
             adapter =
                 UserAdapter(
                     users
                 )
         }
+
+
+
     }
 
     }
