@@ -20,10 +20,10 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(){
 
-    val db = Room.databaseBuilder(
-        applicationContext,
-        AppDatabase::class.java, "todo-list.db"
-    ).build()
+  //  val db = Room.databaseBuilder(
+//        applicationContext,
+ //       AppDatabase::class.java, "todo-list.db"
+ //   ).build()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

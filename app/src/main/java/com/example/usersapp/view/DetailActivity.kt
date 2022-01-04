@@ -9,9 +9,7 @@ import com.example.usersapp.R
 import com.example.usersapp.api.ApiService
 import com.example.usersapp.client.RetrofitClient
 import com.example.usersapp.models.Post
-import com.example.usersapp.models.User
 import com.example.usersapp.util.PostAdapter
-import com.example.usersapp.util.UserAdapter
 import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -19,7 +17,7 @@ import retrofit2.Response
 
 class DetailActivity : AppCompatActivity() {
 
-    var userId = ""
+    var userId:String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,24 +34,26 @@ class DetailActivity : AppCompatActivity() {
         val call = RetrofitClient()
 
         val api = call.getRetrofit().create(ApiService::class.java)
-        api.getPostUser(userId).enqueue(object : Callback<List<Post>> {
-            override fun onResponse(call: Call<List<Post>>, response: Response<List<Post>>) {
-                Log.d("exitoso", "onResponse: {${response.body()!![0].title}")
+        userId?.let {
+            api.getPostUser(it).enqueue(object : Callback<List<Post>> {
+                override fun onResponse(call: Call<List<Post>>, response: Response<List<Post>>) {
+                    Log.d("exitoso", "onResponse: {${response.body()!![0].title}")
 
-                showData( response.body()!!)
-
-
-            }
+                    showData( response.body()!!)
 
 
-            override fun onFailure(call: Call<List<Post>>, t: Throwable) {
-
-                Log.d("falla", "onFailures")
-
-            }
+                }
 
 
-        })
+                override fun onFailure(call: Call<List<Post>>, t: Throwable) {
+
+                    Log.d("falla", "onFailures")
+
+                }
+
+
+            })
+        }
     }
 
 
@@ -63,14 +63,14 @@ class DetailActivity : AppCompatActivity() {
             Log.d(TAG, "getIncomingIntent: checking for incoming intents.")
             if (intent.hasExtra("id")) {
                 Log.d(TAG, "getIncomingIntent: found intent extras.")
-                val userId = intent.getIntExtra("id")
+        //        val userId = intent.getIntExtra("user")
 
 
                 setData(userId)
             }
         }
 
-    private fun setData(userId: Int?){
+    private fun setData(userId: String?){
         Log.d(TAG, "setImage: setting te image and name to widgets.")
         val title = findViewById<TextView>(R.id.title)
         title.text = title.toString()
@@ -91,7 +91,7 @@ class DetailActivity : AppCompatActivity() {
         //room.Postao().insert(posts)
 
         rv_user_list.apply {
-            layoutManager = LinearLayoutManager(this)
+            layoutManager = LinearLayoutManager(this@DetailActivity)
             adapter =
                 PostAdapter(
                     posts

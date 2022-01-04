@@ -11,8 +11,8 @@ import com.example.usersapp.entitys.UserEntity
     version = 1
 )
 abstract class AppDatabase : RoomDatabase(){
-     abstract fun PostDao(): PostDao
-     abstract fun UserDao(): UserDao
+  //   abstract fun PostDao(): PostDao
+   //  abstract fun UserDao(): UserDao
 
     companion object {
         @Volatile private var instance: AppDatabase? = null

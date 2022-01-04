@@ -11,12 +11,12 @@ import android.view.ViewGroup
 import android.widget.Filter
 import android.widget.TextView
 import android.widget.Toast
-import androidx.core.content.ContextCompat.getMainExecutor
-import androidx.core.content.ContextCompat.startActivity
+import androidx.core.content.ContextCompat.*
 import androidx.recyclerview.widget.RecyclerView
 import com.example.usersapp.R
 import com.example.usersapp.models.User
 import com.example.usersapp.view.DetailActivity
+import com.example.usersapp.view.MainActivity
 import kotlinx.android.synthetic.main.user_row.view.*
 import java.lang.Character.toLowerCase
 
@@ -45,13 +45,18 @@ class UserAdapter(
 
         holder.itemView.setOnClickListener {
             Log.d(ContentValues.TAG, "onClick: clicked on: " + users!![position])
-            Toast.makeText(mContext, users!![position].id, Toast.LENGTH_SHORT).show()
 
-            val intent = Intent(this, DetailActivity::class.java).apply {
-                putExtra(EXTRA_MESSAGE, users!![position].id)
+            val activity = holder.itemView.context as MainActivity
+
+            holder.itemView.setOnClickListener {
+                val intent = Intent(activity, DetailActivity::class.java)
+                intent.putExtra("user", user.id)
+
+                activity.startActivity(intent)
             }
-            startActivity(intent)
         }
+
+
 
     }
 
