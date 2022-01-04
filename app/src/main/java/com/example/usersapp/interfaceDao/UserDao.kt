@@ -1,23 +1,24 @@
-package com.example.usersapp.`interface`
+package com.example.usersapp.interfaceDao
 
 import androidx.room.*
+import com.example.usersapp.entitys.UserEntity
 import com.example.usersapp.models.User
 
 @Dao
 interface UserDao {
 
         @Delete
-        fun delete(user: User)
+         fun delete(user: UserEntity)
 
         @Update
-        fun update(user: User)
+         fun update(user: UserEntity)
 
         @Insert(onConflict = OnConflictStrategy.IGNORE)
-        fun insert(people: List<User>)
+         fun insert(user: UserEntity)
 
         @Query("SELECT * FROM UserEntity WHERE id = :id")
-        fun findById(id: Int): User
+         fun findById(id: Int): UserEntity
 
         @Query("SELECT * from UserEntity")
-        fun getAll(): List<User>
+         fun getAll(): List<UserEntity>
     }

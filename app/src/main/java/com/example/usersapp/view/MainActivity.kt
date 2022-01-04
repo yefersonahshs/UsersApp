@@ -1,16 +1,17 @@
 package com.example.usersapp.view
 
-import AppDatabase
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.room.Room
+import com.example.usersapp.Appdatabases.AppDatabase
 
 import com.example.usersapp.R
 import com.example.usersapp.api.ApiService
 import com.example.usersapp.client.RetrofitClient
+import com.example.usersapp.entitys.UserEntity
 import com.example.usersapp.models.User
 import com.example.usersapp.util.RecyclerItemClickListener
 import com.example.usersapp.util.UserAdapter
@@ -22,10 +23,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(){
 
-  //  val db = Room.databaseBuilder(
-//        applicationContext,
- //       AppDatabase::class.java, "todo-list.db"
- //   ).build()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -67,9 +65,28 @@ class MainActivity : AppCompatActivity(){
 */
     private fun showData(users: List<User>) {
 
+    //creo instancia base de datos
+    val room: AppDatabase = Room
+        .databaseBuilder(this, AppDatabase::class.java,"people")
+        .allowMainThreadQueries()
+        .build()
 
-       // room.UserDao().insert(users)
-//    val adapter= KotlinRecyclerAdapter(applicationContext,arrayList)
+
+
+    for(i in users){
+
+        //Creo objeto de tabla usuario y lo lleno con la lista que recoji de la api
+        val user1 = UserEntity (
+            id= i.id,
+            name = i.name,
+            email = i.email,
+            phone = i.phone
+        )
+        //guardo en base de datos
+        room.UserDao().insert(user1)
+    }
+
+
 
     rv_user_list.apply {
             layoutManager = LinearLayoutManager(this@MainActivity)
