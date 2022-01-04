@@ -7,6 +7,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.usersapp.R
 import com.example.usersapp.models.Post
+import kotlinx.android.synthetic.main.post_row.view.*
 import kotlinx.android.synthetic.main.user_row.view.*
 
 
@@ -33,8 +34,8 @@ class PostAdapter(
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
 
-        val title: TextView = itemView.firstName
-        val body: TextView = itemView.email
+        val title: TextView = itemView.title
+        val body: TextView = itemView.body
 
     }
 
