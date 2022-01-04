@@ -48,12 +48,14 @@ class UserAdapter(
 
             val activity = holder.itemView.context as MainActivity
 
+ /*
+
             holder.itemView.setOnClickListener {
                 val intent = Intent(activity, DetailActivity::class.java)
                 intent.putExtra("user", user.id)
 
-                activity.startActivity(intent)
-            }
+                activity.startActivity(intent)*/
+
         }
 
 

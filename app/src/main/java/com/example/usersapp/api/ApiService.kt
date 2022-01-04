@@ -11,7 +11,7 @@ interface ApiService {
     @GET("/users")
     fun SearchAllUser(): Call<List<User>>
 
-    @GET("get_employee/{userId}")
+    @GET("posts?userId={userId}")
     fun getPostUser(@Path("userId") userId: String): Call <List<Post>>
 
 }

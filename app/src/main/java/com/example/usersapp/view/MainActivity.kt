@@ -84,7 +84,11 @@ class MainActivity : AppCompatActivity(){
                 RecyclerItemClickListener(applicationContext,
                     RecyclerItemClickListener.OnItemClickListener { view, position ->
                         val intent= Intent(applicationContext,DetailActivity::class.java)
-                        intent.putExtra("user", users[position].id)
+                        var id = (users[position].id).toString()
+                        intent.putExtra("user", id)
+                        System.out.println("id user")
+
+                        System.out.println(users[position].id)
                         startActivity(intent)
                     })
             )
